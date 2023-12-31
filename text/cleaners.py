@@ -1,5 +1,4 @@
 """ from https://github.com/keithito/tacotron """
-
 '''
 Cleaners are transformations that run over the input text at both training and eval time.
 
@@ -12,34 +11,35 @@ hyperparameter. Some cleaners are English-specific. You'll typically want to use
      the symbols in symbols.py to match your data).
 '''
 
-
 # Regular expression matching whitespace:
 import re
 from unidecode import unidecode
 from .numbers import normalize_numbers
+
 _whitespace_re = re.compile(r'\s+')
 
 # List of (regular expression, replacement) pairs for abbreviations:
-_abbreviations = [(re.compile('\\b%s\\.' % x[0], re.IGNORECASE), x[1]) for x in [
-    ('mrs', 'misess'),
-    ('mr', 'mister'),
-    ('dr', 'doctor'),
-    ('st', 'saint'),
-    ('co', 'company'),
-    ('jr', 'junior'),
-    ('maj', 'major'),
-    ('gen', 'general'),
-    ('drs', 'doctors'),
-    ('rev', 'reverend'),
-    ('lt', 'lieutenant'),
-    ('hon', 'honorable'),
-    ('sgt', 'sergeant'),
-    ('capt', 'captain'),
-    ('esq', 'esquire'),
-    ('ltd', 'limited'),
-    ('col', 'colonel'),
-    ('ft', 'fort'),
-]]
+_abbreviations = [(re.compile('\\b%s\\.' % x[0], re.IGNORECASE), x[1])
+                  for x in [
+                      ('mrs', 'misess'),
+                      ('mr', 'mister'),
+                      ('dr', 'doctor'),
+                      ('st', 'saint'),
+                      ('co', 'company'),
+                      ('jr', 'junior'),
+                      ('maj', 'major'),
+                      ('gen', 'general'),
+                      ('drs', 'doctors'),
+                      ('rev', 'reverend'),
+                      ('lt', 'lieutenant'),
+                      ('hon', 'honorable'),
+                      ('sgt', 'sergeant'),
+                      ('capt', 'captain'),
+                      ('esq', 'esquire'),
+                      ('ltd', 'limited'),
+                      ('col', 'colonel'),
+                      ('ft', 'fort'),
+                  ]]
 
 
 def expand_abbreviations(text):

@@ -36,9 +36,11 @@ def prepare_align_and_resample(data_dir, sr):
     wavs = []
     for wav_folder in wav_foder_names:
         wav_folder = os.path.join(data_dir, wav_folder)
-        wav_fname_list = [str(f) for f in list(Path(wav_folder).rglob('*.wav'))]
+        wav_fname_list = [
+            str(f) for f in list(Path(wav_folder).rglob('*.wav'))
+        ]
 
-        output_wavs_folder_name = 'wav{}'.format(sr//1000)
+        output_wavs_folder_name = 'wav{}'.format(sr // 1000)
         output_wavs_folder = os.path.join(data_dir, output_wavs_folder_name)
         if not os.path.exists(output_wavs_folder):
             os.mkdir(output_wavs_folder)
@@ -48,6 +50,6 @@ def prepare_align_and_resample(data_dir, sr):
             output_folder = os.path.join(output_wavs_folder, _sid)
             wavs.append((output_folder, wav_fname))
 
-    lengths = Parallel(n_jobs=10, verbose=1)(
-        delayed(write_single)(wav[0], wav[1], sr) for wav in wavs
-    )
+    lengths = Parallel(n_jobs=10,
+                       verbose=1)(delayed(write_single)(wav[0], wav[1], sr)
+                                  for wav in wavs)
